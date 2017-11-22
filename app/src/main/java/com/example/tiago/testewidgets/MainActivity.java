@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InicializarComponentes();
+        InicialiarEventos();
     }
 
     private void InicializarComponentes() {
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         pbtnAdicionar = (Button) findViewById(R.id.btnAdd);
         pbtnRemover = (Button) findViewById(R.id.btnRemove);
         pbtnExibir = (Button) findViewById(R.id.btnShow);
+    }
+
+    private void InicialiarEventos() {
 
         pchkExibir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -56,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 ExibirOcultarView(plytConteudo);
             }
         });
-
-        //pchkExibir.setChecked(true);
 
         pbtnAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,13 +156,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-     private List<String> RetornarTextos(ViewGroup viewGroup) {
+    private List<String> RetornarTextos(ViewGroup viewGroup) {
 
-        for (int i = 0; i < viewGroup.getChildCount(); i++){
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
-            if (child instanceof ViewGroup){
+            if (child instanceof ViewGroup) {
                 RetornarTextos((ViewGroup) child);
-            } else if (child instanceof EditText){
+            } else if (child instanceof EditText) {
                 plstTextos.add(((EditText) child).getText().toString());
             } else if (child instanceof ImageView) {
                 //plstTextos.add(((ImageView) child).getId() + "\n");
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, strTextoToast, Toast.LENGTH_LONG).show();
     }
 
-    public void CapturarFoto(){
+    public void CapturarFoto() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
